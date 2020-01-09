@@ -1,5 +1,8 @@
 # DanmuGui
+
 抓取斗鱼弹幕
+
+![Screenshot](https://github.com/joechenrh/DanmuGui/blob/master/Screenshot.png)
 
 ## Usage
 
