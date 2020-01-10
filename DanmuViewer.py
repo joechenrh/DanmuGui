@@ -88,7 +88,7 @@ class DanmuViewer(QTextBrowser):
             """
             <table>
                 <tr>
-                    <td valign=middle><img src='levels/{}.png' height='18'></td>
+                    <td valign=middle><img src='levels/{}.png' height='16'></td>
                     <td valign=middle>&nbsp;<font style="font-weight:bold;background-color:{};">{}</font></td>
                     <td valign=middle><font style="color:#2B8EF1;">&nbsp;{}:&nbsp;</font></td>
                     <td valign=middle>{}</td>
