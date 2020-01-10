@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Date    : 2020-01-09 22:58:04
 # @Author  : Joe chen (joechenrh@gmail.com)
@@ -20,7 +20,7 @@ class DanmuViewer(QTextBrowser):
         super(DanmuViewer, self).__init__(parent)
 
         # self.textEdit.setReadOnly(True)
-        self.document().setMaximumBlockCount(90)
+        self.document().setMaximumBlockCount(90 + 1)
         self.setFrameStyle(QFrame.NoFrame)
 
         textCursor = self.textCursor()
@@ -60,9 +60,9 @@ class DanmuViewer(QTextBrowser):
             """
             <table>
                 <tr>
-                    <td><img src='levels/{}.png' height='18'></td>
-                    <td><font color=#2B8EF1 style="valign:middle;">&nbsp;{}:&nbsp;&nbsp;</font></td>
-                    <td>{}</td>
+                    <td valign=middle><img src='levels/{}.png' height='16'></td>
+                    <td valign=middle><font color=#2B8EF1>&nbsp;{}:&nbsp;&nbsp;</p></td>
+                    <td valign=middle>{}</td>
                 </tr>
             </table>
             """
@@ -95,22 +95,17 @@ class DanmuViewer(QTextBrowser):
 
             banner_level = int(obj.get('bl'))
             if banner_level:
-                nn = "[{}级{}]{}".format(banner_level, obj.get('bnn'), obj.get('nn'))
+                nn = "[{}级{}] {}".format(banner_level, obj.get('bnn'), obj.get('nn'))
             else:
                 nn = obj.get('nn')
 
             self.insertHtml(testHtml.format(obj.get('level'), nn, txt))
-            self.append("")
-            #self.insertHtml(danmuHtml.format(obj.get('bl'),
-            #                                 obj.get('bnn'),
-            #                                 obj.get('level'),
-            #                                 obj.get('nn',''),
-            #                                 obj.get('txt','')))
-            #self.append("")
+        
         elif mtype == 'uenter':
             str = "欢迎 {} 来到直播间".format(obj.get('nn',''))
             self.insertHtml(enterHtml.format(str))
-            self.append("")
+        
+        self.append("")
     
     def mousePressEvent(self, event):
         return

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Date    : 2020-01-09 22:56:15
 # @Author  : Joe chen (joechenrh@gmail.com)
@@ -62,7 +62,7 @@ class DanmuServer(QObject):
         self.ws = websocket.WebSocketApp("wss://danmuproxy.douyu.com:8503/",
                                          on_message=self.on_message,
                                          on_open=self.on_open)
-        self.room_id = '74960'
+        self.room_id = '957090'
     
     @pyqtSlot()
     def start(self):
@@ -80,7 +80,6 @@ class DanmuServer(QObject):
             for info, mtype in messageToInfos(message):
                 if info:
                     self.messageReceived.emit([info, mtype])
-                    pass
         except Exception as err:
             print('** message parse err **')
             print(message, err)

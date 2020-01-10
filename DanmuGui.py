@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -14,7 +14,7 @@ class DanmuGui(QWidget):
         self.setWindowTitle('弹幕抓取')
 
         # 定义窗口的初始大小
-        self.resize(600, 500)
+        self.resize(600, 550)
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
 
         # https://bbs.csdn.net/topics/392012485
