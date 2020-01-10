@@ -42,16 +42,19 @@ def getInfo(obj):
         return obj, 'chatmsg'
     elif obj.get('type') == 'uenter':
         return obj, 'uenter'
-    elif obj.get('type') in ['rss', 'loginres', 'dgb', 'wiru', 'rankup', 'actfsts1od_r', 'frank',
+    elif obj.get('type') in ['rss', 'loginres', 'wiru', 'rankup', 'actfsts1od_r', 'frank',
                              'rri', 'svsnres', 'newblackres', 'fire_user', 'fire_start',
                              'tsboxb', 'ghz2019arkcalc', 'ghz2019s1info', 'ghz2019s2info', 'fire_real_user',
                              'gbroadcast', 'srres', 'spbc', 'ghz2019s2calc', 'upgrade', 'rquizisn',
                              'anbc', 'wirt', 'ghz2019s1disp', 'blab', 'cthn', 'rnewbc', 'pingreq',
                              'noble_num_info', 'rank_change', 'mrkl', 'synexp', 'fswrank', 'ranklist', 'qausrespond']:
-        return None, None
-    else:
-        #return '*** {} ***'.format(obj.get('type')), 'other'
-        pass
+        return None, "ignore"
+        
+    elif obj.get('type') == 'dgb':
+        print(obj)
+
+    return None, None
+    
 
 
 class DanmuServer(QObject):
@@ -62,7 +65,7 @@ class DanmuServer(QObject):
         self.ws = websocket.WebSocketApp("wss://danmuproxy.douyu.com:8503/",
                                          on_message=self.on_message,
                                          on_open=self.on_open)
-        self.room_id = '957090'
+        self.room_id = '9999'
     
     @pyqtSlot()
     def start(self):
@@ -77,12 +80,12 @@ class DanmuServer(QObject):
 
     def on_message(self, message):
         try:
-            for info, mtype in messageToInfos(message):
+            for [info, mtype] in messageToInfos(message):
                 if info:
                     self.messageReceived.emit([info, mtype])
         except Exception as err:
             print('** message parse err **')
-            print(message, err)
+            print(message, err, messageToInfos(message))
 
     def on_open(self):
         print('### open ###')
