@@ -26,6 +26,20 @@ for i in range(21, 26):
 for i in range(26, 100):
     fans_color[i] = "#9E59F5"
 
+gifts = {
+    '20002': "办卡",
+    '20003': "飞机",
+    '20417': "福袋",
+}
+
+'''
+{'type': 'dgb', 'rid': '9999', 'gfid': '20417', 'gs': '0', 'uid': '202698554', 'bg': '1', 'nn': '天才小熊猫Ann', 'ic': 'avatar_v3/201812/cef0cda1754c8d1bf3c8f9d43aad6341', 'eid': '0', 'eic': '20051', 'level': '9', 'dw': '0', 'gfcnt': '20', 'hits': '20', 'bcnt': '1', 'bst': '27', 'ct': '1', 'el': '', 'cm': '0', 'bnn': '影魔王', 'bl': '4', 'brid': '532152', 'hc': 'b50c8935f91afb1a14fe0f6acb1df6b2', 'sahf': '0', 'fc': '0', 'bnid': '1', 'bnl': '1', 'from': '1'}
+福袋
+
+20002:banka
+20003:feiji
+'''
+
 ##########################################################################
 
 class DanmuViewer(QTextBrowser):
@@ -97,35 +111,42 @@ class DanmuViewer(QTextBrowser):
             """
 
         enterHtml = """<font style="font-weight:bold;" color=#FFFFFF>{}</font>"""
+        giftHtml = """<font style="font-weight:bold;background-color:#FFFFFF;" color=#000000>感谢 {} 送出 {}</font>"""
 
-        if mtype == 'chatmsg':
-            # 字体颜色和弹幕颜色一致
-            if obj.get('col'):
-                font_color = danmu_color[obj.get('col')]
-            else:
-                font_color = "#FFFFFF"
+        try:
+            if mtype == 'chatmsg':
+                # 字体颜色和弹幕颜色一致
+                if obj.get('col'):
+                    font_color = danmu_color[obj.get('col')]
+                else:
+                    font_color = "#FFFFFF"
 
-            # 贵族弹幕加背景
-            if obj.get('nl', '') and int(obj.get('nl', '')) > 2:
-                txt = "<font style='background:#FFF3DF;color:#000000'>{}</font>".format(obj.get('txt'))
-            else:
-                txt = "<font style='color:{}'>{}</font>".format(font_color, obj.get('txt'))
+                # 贵族弹幕加背景
+                if obj.get('nl', '') and int(obj.get('nl', '')) > 2:
+                    txt = "<font style='background:#FFF3DF;color:#000000'>{}</font>".format(obj.get('txt'))
+                else:
+                    txt = "<font style='color:{}'>{}</font>".format(font_color, obj.get('txt'))
 
-            # 牌子等级加背景
-            banner_level = int(obj.get('bl'))
-            if banner_level:
-                bnn = "[{}级{}]".format(banner_level, obj.get('bnn'))
-                self.insertHtml(html_banner.format(obj.get('level'), fans_color[banner_level], bnn, obj.get('nn'), txt))
-            else:
-                self.insertHtml(html_nobanner.format(obj.get('level'), obj.get('nn'), txt))
-
+                # 牌子等级加背景
+                if obj.get('bnn', ''):
+                    banner_level = int(obj.get('bl'))
+                    bnn = "[{}级{}]".format(banner_level, obj.get('bnn'))
+                    self.insertHtml(html_banner.format(obj.get('level'), fans_color[banner_level], bnn, obj.get('nn'), txt))
+                else:
+                    self.insertHtml(html_nobanner.format(obj.get('level'), obj.get('nn'), txt))
             
+            elif mtype == 'gift':
+                gift_name = gifts.get('gfid', '其他')
+                self.insertHtml(giftHtml.format(obj.get('nn'), gift_name))
+
+            elif mtype == 'uenter':
+                str = "欢迎 {} 来到直播间".format(obj.get('nn',''))
+                self.insertHtml(enterHtml.format(str))
         
-        elif mtype == 'uenter':
-            str = "欢迎 {} 来到直播间".format(obj.get('nn',''))
-            self.insertHtml(enterHtml.format(str))
+            self.append("")
         
-        self.append("")
+        except Exception as err:
+            print ("Print Err", err, obj)
     
     def mousePressEvent(self, event):
         return

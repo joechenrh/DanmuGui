@@ -13,6 +13,10 @@ from PyQt5.QtCore import *
 import pystt
 import threading
 
+{'type': 'dgb', 'rid': '9999', 'gfid': '20003', 'gs': '0', 'uid': '2158338', 'bg': '1', 'nn': '霸气虚幻哥1991', 'ic': 'avatar/002/15/83/38_avatar', 'eid': '0', 'eic': '20001', 'level': '33', 'dw': '0', 'gfcnt': '1', 'hits': '2', 'bcnt': '2', 'bst': '60', 'ct': '0', 'el': '', 'cm': '0', 'bnn': '', 'bl': '0', 'brid': '0', 'hc': '', 'sahf': '0', 'fc': '0', 'bnid': '1', 'bnl': '2', 'from': '1'}
+{'type': 'dgb', 'rid': '9999', 'gfid': '20003', 'gs': '0', 'uid': '209624', 'bg': '1', 'nn': 'P01314', 'ic': 'avatar/000/20/96/24_avatar', 'eid': '0', 'eic': '20001', 'level': '34', 'dw': '0', 'gfcnt': '1', 'hits': '1', 'bcnt': '1', 'bst': '60', 'nl': '7', 'ct': '0', 'el': '', 'cm': '0', 'bnn': '', 'bl': '0', 'brid': '0', 'hc': '', 'sahf': '0', 'fc': '0', 'bnid': '1', 'bnl': '2', 'from': '1'}
+
+
 danmu_color = {'1': '#FF0000', '2': '#00CCFF', '3': '#66FF00', '4': "#FF6600", '5': '#CC00FF', '6': '#F6447F'}
 
 def objToMessage(obj):
@@ -52,6 +56,7 @@ def getInfo(obj):
         
     elif obj.get('type') == 'dgb':
         print(obj)
+        return obj, 'gift'
 
     return None, None
     
