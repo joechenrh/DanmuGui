@@ -7,6 +7,7 @@ from PyQt5.QtGui import *
 from DanmuViewer import DanmuViewer
 
 ##########################################################################
+# https://www.eggtart.icu/learning/danmu_scratch/
 
 class DanmuGui(QWidget):
     def __init__(self, parent=None):
